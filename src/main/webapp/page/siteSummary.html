@@ -1,0 +1,219 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+    <title>网站概况</title>
+    <script type="text/javascript">
+    		var idSite = "";
+    		var t = "";
+    </script>
+    <script type="text/javascript" src="../common/js/common.js"></script>
+    <style type="text/css">
+    		.main-content {border-left: none;border-right: none;padding: 15px;background-color: #ececec;}
+		.table-list {border: 1px solid #dedede;background-color: #fff;}
+		.today-flow {color: black;font-weight: bold;padding-bottom: 0px;font-size: 16px;padding-left: 10px;}
+		.overview-gap {clear: both; background-color: #ececec; height: 16px;}
+		.overview-detail{}
+		.control-bar-wrapper{border: 1px solid #dfe0e0; padding: 0;background-color: #fff;}
+		.index-site{background-color: #ececec; height: 1210px;}
+		.table-grid-item {margin-top: 1px; background-color: #fff; height: 392px;}
+		#today-flow-table tr.thead td{border-top:0px;} 
+    </style>
+  </head>
+  
+  <body>
+	<div class="main-content">
+		<!-- 今日流量 -->
+		<div class="table-list">
+			<table id="today-flow-table" class="table table-hover">
+				<caption class="today-flow">今日流量</caption>
+				
+				<tbody>
+					<tr class="thead" style="color: #777;" align="center">
+						<td></td>
+						<td><div data-toggle="tooltip" data-placement="auto" title="页面被查看的次数。用户多次打开同一页面，浏览量值累计。">浏览量(PV)</div></td>
+						<td><div data-toggle="tooltip" data-placement="auto" title="网站独立访客数量。即使一天之内多次访问网站也只会被统计一次。">访客数(UV)</div></td>
+						<td><div data-toggle="tooltip" data-placement="auto" title="访客第一次访问你的网站或者距离上次访问时间超过30分钟，会被统计为新的访问。">访问</div></td>
+						<td><div data-toggle="tooltip" data-placement="auto" title="登录你的网站的用户数量。它是具有用户ID组唯一活跃用户的数量。">用户数</div></td>
+						<td><div data-toggle="tooltip" data-placement="auto" title="只查看单个页面的百分比，即访客直接从入口页面离开网站。">跳出率</div></td>
+						<td><div data-toggle="tooltip" data-placement="auto" title="访客在一次访问中，平均打开网站的时长。">平均访问时长</div></td>
+					</tr>
+					<tr class="today" align="center">
+						<td colspan="7"></td>
+					</tr>
+					<tr class="yesterday" align="center">
+						<td colspan="7"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="overview-gap"></div>
+		<div class="overview-detail">
+			<div id="DateSelectBar">
+				<div class="control-bar-wrapper">
+					<div id="dateDiv" class="btn-group">
+						<button type="button" class="btn btn-default" data="last1" onclick="changeDate('last1')">今天</button>
+						<button type="button" class="btn btn-default" data="previous1" onclick="changeDate('previous1')">昨天</button>
+						<button type="button" class="btn btn-default active" data="last7" onclick="changeDate('last7')">最近7天</button>
+						<button type="button" class="btn btn-default" data="last30" onclick="changeDate('last30')">最近30天</button>
+						<input id="date" type="hidden" value="last7" />
+					</div>
+				</div>
+			</div>
+			<div class="overview-gap"></div>
+			<div class="index-site">
+				<div class="first-row">
+					<div style="float: left;width: 49%;">
+						<div class="table-grid-item">
+							<div class="title" style="height: 55px;">
+								<div style="float: left;font-weight: bold;font-size: 14px;padding: 5px 0 0 10px;">访客趋势图</div>
+								<div style="float: right;padding: 5px 10px 0 0;">
+									<a href="javascript:jumpTrend();" title="详情"><span class="glyphicon glyphicon-chevron-right"></span></a>
+								</div>
+								<div style="clear: both;"></div>
+								<div id="btn_group" class="btn-group" style="padding: 5px 0 0 10px;">
+									<button id="btn_pv" type="button" class="btn btn-default btn-xs active" onclick="visitTendency_btn1('pv');">浏览量(PV)</button>
+									<button id="btn_uv" type="button" class="btn btn-default btn-xs" onclick="visitTendency_btn1('uv');">访客数(UV)</button>
+									<div class="btn-group">
+										<button id="btn_other" type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+											<span id="visitTendency_btn_text">其他</span>
+											<span class="caret"></span>
+										</button>
+										<ul class="dropdown-menu">
+											<li><a id="btn_visit" href="javascript:visitTendency_btn2('visit');">访问</a></li>
+											<li><a id="btn_user" href="javascript:visitTendency_btn2('user');">用户数</a></li>
+											<li><a id="btn_br" href="javascript:visitTendency_btn2('br');">跳出率</a></li>
+											<li><a id="btn_at" href="javascript:visitTendency_btn2('at');">平均访问时长</a></li>
+										</ul>
+								  </div>
+								  <input type="hidden" id="visitTendencyIndex" value="pv"/>
+								</div>
+							</div>
+							<div id="visitTendency" style="width: '49%';height:350px;"></div>
+						</div>
+					</div>
+					<div style="float: right;width: 49%;">
+						<div class="table-grid-item">
+							<div class="title" style="height: 35px;">
+								<div style="float: left;font-weight: bold;font-size: 14px;padding: 5px 0 0 10px;">Top10受访页面</div>
+								<div style="float: right;padding: 5px 10px 0 0;">
+									<a href="javascript:jumpVisitPage();" title="详情"><span class="glyphicon glyphicon-chevron-right"></span></a>
+								</div>
+								<div style="clear: both;"></div>
+							</div>
+							<div id="top10_visit" style="height:355px;padding: 0 10px 0 10px;" class="table-responsive">
+							  	<table class="table table-condensed">
+									<thead>
+										<tr>
+											<th width="60%">受访页面</th>
+											<th width="20%">浏览量(PV)</th>
+											<th width="20%">占比</th>
+										</tr>
+									</thead>
+									<tbody id="top10_visit_tbody">
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="overview-gap"></div>
+				<div class="second-row">
+					<div style="float: left;width: 49%;">
+						<div class="table-grid-item">
+							<div class="title" style="height: 35px;">
+								<div style="float: left;font-weight: bold;font-size: 14px;padding: 5px 0 0 10px;">Top10最优性能页面</div>
+								<div style="float: right;padding: 5px 10px 0 0;">
+									<a href="javascript:jumpWellPage();" title="详情"><span class="glyphicon glyphicon-chevron-right"></span></a>
+								</div>
+								<div style="clear: both;"></div>
+							</div>
+							<div id="top10_wellPage" style="height:355px;padding: 0 10px 0 10px;" class="table-responsive">
+							  	<table class="table table-condensed">
+									<thead>
+										<tr>
+											<th width="70%">页面</th>
+											<th width="30%" style="text-align:center;">平均生成时长(秒)</th>
+										</tr>
+									</thead>
+									<tbody id="top10_wellPage_tbody">
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div style="float: right;width: 49%;">
+						<div class="table-grid-item">
+							<div class="title" style="height: 35px;">
+								<div style="float: left;font-weight: bold;font-size: 14px;padding: 5px 0 0 10px;">Top10最差性能页面</div>
+								<div style="float: right;padding: 5px 10px 0 0;">
+									<a href="javascript:jumpBadPage();" title="详情"><span class="glyphicon glyphicon-chevron-right"></span></a>
+								</div>
+								<div style="clear: both;"></div>
+							</div>
+							<div id="top10_badPage" style="height:355px;padding: 0 10px 0 10px;" class="table-responsive">
+							  	<table class="table table-condensed">
+									<thead>
+										<tr>
+											<th width="70%">页面</th>
+											<th width="30%" style="text-align:center;">平均生成时长(秒)</th>
+										</tr>
+									</thead>
+									<tbody id="top10_badPage_tbody">
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="overview-gap"></div>
+				<div class="third-row">
+					<div style="float: left;width: 49%;">
+						<div class="table-grid-item">
+							<div class="title" style="height: 35px;">
+								<div style="float: left;font-weight: bold;font-size: 14px;padding: 5px 0 0 10px;">地域分布</div>
+								<div style="float: right;padding: 5px 10px 0 0;">
+									<a href="javascript:jumpDistrict();" title="详情"><span class="glyphicon glyphicon-chevron-right"></span></a>
+								</div>
+								<div style="clear: both;"></div>
+							</div>
+							<div id="map_distribution" style="width: '49%';height:350px;"></div>
+						</div>
+					</div>
+					<div style="float: right;width: 49%;">
+						<div class="table-grid-item">
+							<div class="title" style="height: 35px;">
+								<div style="float: left;font-weight: bold;font-size: 14px;padding: 5px 0 0 10px;">Top10入口页面</div>
+								<div style="float: right;padding: 5px 10px 0 0;">
+									<a href="javascript:jumpEntryPage();" title="详情"><span class="glyphicon glyphicon-chevron-right"></span></a>
+								</div>
+								<div style="clear: both;"></div>
+							</div>
+							<div id="top10_entry" style="height:355px;padding: 0 10px 0 10px;" class="table-responsive">
+								<table class="table table-condensed">
+									<thead>
+										<tr>
+											<th width="60%">入口页面</th>
+											<th width="20%">浏览量(PV)</th>
+											<th width="20%">占比</th>
+										</tr>
+									</thead>
+									<tbody id="top10_entry_tbody">
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+  </body>
+  <script type="text/javascript" src="../common/lib/anhui.js"></script>
+  <script type="text/javascript" src="../common/js/page/siteSummary.js"></script>
+</html>
