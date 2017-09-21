@@ -23,12 +23,12 @@ function clearCookie(name) {
 }
 
 /*ajax请求*/
-function ajax(url, param, datat, callback) {  
+function ajax(url, param, callback) {
 	$.ajax({  
 		type: "post",  
 		url: url,  
 		data: param,  
-		dataType: datat,  
+		dataType: 'json',
 		success: callback,  
 		error: function () {  
 			alert("请求异常.."); 

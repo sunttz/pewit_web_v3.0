@@ -200,9 +200,8 @@
                 <artifactId>maven-jetty-plugin</artifactId>
                 <version>6.1.21</version>
                 <configuration>
-                    <!-- 添加这行<webDefaultXml>src/main/resources/jetty/webdefault.xml</webDefaultXml>   -->
-                    <!--可以边修改边访问-->
-                    <!-- <webAppSourceDirectory>src/main/webapp</webAppSourceDirectory>   -->
+                    <webDefaultXml>src/main/resources/webdefault.xml</webDefaultXml>
+                    <webAppSourceDirectory>src/main/webapp</webAppSourceDirectory>
                     <scanIntervalSeconds>3</scanIntervalSeconds>
                     <contextPath>/</contextPath>
                     <connectors>

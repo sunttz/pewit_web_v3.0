@@ -415,6 +415,9 @@ $(function(){
 						{"id":"45","name":"用户分析","parentId":"43","url":"m4/userDist.html","icon":"&#xe602;","order":"2","isHeader":"0","childMenus":""},
 						{"id":"46","name":"浏览器分布","parentId":"43","url":"m4/browerDist.html","icon":"&#xe602;","order":"3","isHeader":"0","childMenus":""},
 						//{"id":"47","name":"自定义变量","parentId":"43","url":"a.html","icon":"&#xe602;","order":"4","isHeader":"0","childMenus":""}
+					]},
+					{"id":"53","name":"系统管理","parentId":"1","url":"","icon":"","order":"1","isHeader":"0","childMenus":[
+						{"id":"54","name":"受访模块配置","parentId":"53","url":"m5/moduleConfig.html","icon":"&#xe602;","order":"1","isHeader":"0","childMenus":""},
 					]}
 				]}
 //				{"id":"2","name":"框架案例","parentId":"0","url":"","icon":"","order":"2","isHeader":"1","childMenus":[

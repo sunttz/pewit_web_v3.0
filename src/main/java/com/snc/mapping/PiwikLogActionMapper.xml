@@ -47,13 +47,15 @@
   <!-- 查询对应网站的模块信息 -->
   <select id="selectSiteModules" parameterType="java.lang.Integer"
           resultType="java.util.HashMap">
-    SELECT idaction,name
-      FROM piwik_log_action pla
-      LEFT JOIN (SELECT DISTINCT idsite,idaction_name from piwik_log_link_visit_action WHERE idaction_name &lt;&gt; '') site on pla.idaction = site.idaction_name
-    WHERE pla.type = 4
-    <if test="idsite != null and idsite !=''">
-      AND site.idsite = #{idsite,jdbcType=INTEGER}
-    </if>
+    SELECT (@i:=@i+1) as id,module.idaction,module.name FROM
+      (SELECT idaction,name
+        FROM piwik_log_action pla
+        LEFT JOIN (SELECT DISTINCT idsite,idaction_name from piwik_log_link_visit_action WHERE idaction_name &lt;&gt; '') site on pla.idaction = site.idaction_name
+      WHERE pla.type = 4
+      <if test="idsite != null and idsite !=''">
+        AND site.idsite = #{idsite,jdbcType=INTEGER}
+      </if>
+      ORDER BY idaction DESC) module,(select @i:=0) as it
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--

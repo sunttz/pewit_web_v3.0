@@ -115,6 +115,17 @@
 	    			$("#userName").text(userName);
 	    			loginUser = userName;
 	    			user_token_auth = uta;
+	    			// 判断是否管理员，否则隐藏系统管理菜单
+                    if(loginUser != null && loginUser != ""){
+                        var getUser_param = {module:"API",method:"UsersManager.getUser",userLogin:loginUser,format:"json",token_auth:user_token_auth};
+                        ajax_jsonp(piwik_url, getUser_param, function(data){
+                            data_getUser = eval(data[0]);
+                            var access = data_getUser.superuser_access;
+                            if(access != 1){
+                                $("#menu-child-53").parent("li").hide();
+                            }
+                        });
+                    }
 	    			// 设置访问网站列表
 	    			sites = eval(sites);
 	    			// 获取所有网站信息
@@ -151,17 +162,15 @@
 	    					$("#siteMenu").html(siteHtml);
 	    				}
 	    			});
-	    			
 	    		}
-	    		
-		})
+		});
     		
-    		// 登出
-    		function logout(){
-    			clearCookie("userName");
-    			window.location.href="login.html";
-    		}
-    		// 个人信息
+		// 登出
+		function logout(){
+			clearCookie("userName");
+			window.location.href="login.html";
+		}
+		// 个人信息
 		function showPersonInfo(){
 			if(loginUser != null && loginUser != ""){
 				var getUser_param = {module:"API",method:"UsersManager.getUser",userLogin:loginUser,format:"json",token_auth:user_token_auth};
