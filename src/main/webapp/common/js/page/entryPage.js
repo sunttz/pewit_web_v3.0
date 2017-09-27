@@ -159,10 +159,10 @@ function ajaxPieLine(){
 				for(var i=0;i<top10Urls.length;i++){
 					var url = top10Urls[i];
 					lineData[url] = data[i];
-                    if(i > 2){
-                        break;
-                    }
-                }
+					if(i > 2){
+						break;
+					}
+				}
 				refreshPieLine();
 			});
 		}else{

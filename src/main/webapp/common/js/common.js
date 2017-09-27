@@ -1,4 +1,3 @@
-// 一级目录使用
 document.write('<script type="text/javascript" src="../common/js/constant.js"></script>');
 document.write('<script type="text/javascript" src="../common/lib/jquery-3.2.1.min.js"></script>');
 document.write('<script type="text/javascript" src="../common/js/util.js"></script>');
