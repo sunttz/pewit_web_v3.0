@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>网管系统功能模块后评估全视图</title>
+		<script type="text/javascript">
+	    		var idSite = "";
+	    		var t = "";
+	    </script>
+	    <script type="text/javascript" src="../../common/js/common1.js"></script>
+	    <style type="text/css">
+	    		.main {border-left: none;border-right: none;background-color: #ececec;height:'100%';padding-bottom: 5px;}
+	    		.content-header-wrapper {width: auto;left: 0px;background-color: #fff;height: 90px;border:1px solid #E8E8E8}
+	    		.main-content {height: '100%';margin: 15px;background-color: #fff;}
+				.overview-gap {clear: both; background-color: #ececec; height: 10px;}
+	    </style>
+	</head>
+	<body>
+		<div class="main">
+			<div id="content-header-wrapper" class="content-header-wrapper">
+				<div id="content-header" style="padding: 10px 10px 0 10px;">
+					<div style="line-height: 18px;">
+						<div style="float: left;margin-top: 5px;font-size: 16px;font-weight: bold;">网管系统功能模块后评估全视图<span id="searchVal"></span></div>
+					</div>
+					<div style="clear: both;"></div>
+					<div style="margin-top: 10px;">
+						<form role="form" class="form-inline">
+							查询条件：
+							<div class="input-group">
+								<div class="input-group-btn">
+									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+										<span id="searchText">功能模块</span>
+										<span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu">
+										<li><a href="javascript:searchChange('module')">功能模块</a></li>
+										<li><a href="javascript:searchChange('url')">受访URL</a></li>
+									</ul>
+								</div>
+								<input id="searchModule" type="text" class="form-control" placeholder="请输入功能模块名" style="width: 250px;">
+								<input id="searchUrl" type="text" class="form-control" placeholder="请输入受访URL" style="width: 250px;display: none;">
+								<input type="hidden" id="searchType" value="module"/>
+							</div>
+							<button type="button" class="btn btn-default" onclick="searchSubmit();">查询</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div id="noData" style="height: 660px;">
+				<div style="position: absolute;top:50%;left: 50%;">暂无数据</div>
+			</div>
+			<div class="main-content" style="display: none;">
+				<div id="DateSelectBar" style="padding: 10px;background-color: #fff;">
+					<div class="control-bar-wrapper">
+						<span>时间：</span>
+						<div id="dateDiv" class="btn-group">
+							<input id="dateKind" type="hidden" value="" />
+							<div class="form-group" style="display: inline-block;margin: 0 0 0 20px;">
+								<input type="text" class="form-control" name="startDate" id="startDate" style="display: block;float: left;overflow: hidden;width:110px;height: 30px;" onclick="WdatePicker({doubleCalendar:false,dateFmt:'yyyy-MM-dd',autoPickDate:true,minDate:'#{%y-1}-%M-%d',maxDate:'#F{$dp.$D(\'endDate\')||\'%y-%M-%d\'}',onpicked:function(){endDate.click();}});" />
+								<label class="control-label" style="padding:3px 5px 0 0;float: left;">&nbsp;-</label>
+								<input type="text" class="form-control" name="endDate" id="endDate" style="display: block;float: left;overflow: hidden;width:110px;height: 30px;" onclick="WdatePicker({doubleCalendar:false,minDate:'#F{$dp.$D(\'startDate\')}',maxDate:'%y-%M-%d',dateFmt:'yyyy-MM-dd',autoPickDate:true,onpicked:dateSelect});" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="overview-gap"></div>
+				<div id="searchUrlData" style="display: none;">
+					<div id="summary" style="padding: 2px 0;border-bottom:1px solid #E8E8E8;">
+						<table class="table" style="margin-bottom: 0px;border-right:1px solid #E8E8E8" frame="void" rules="cols">
+							<tbody>
+								<tr >
+									<td width="16.7%"><div style="color: #777;">浏览量(PV) <span data-toggle="tooltip" data-placement="auto" title="页面被查看的次数。用户多次打开同一页面，浏览量值累计。" class="glyphicon glyphicon-question-sign" style="color: rgb(206, 207, 203);"></span></div><h4 id="d_nh"></h4></td>
+									<td width="16.7%"><div style="color: #777;">唯一页面浏览量 <span data-toggle="tooltip" data-placement="auto" title="浏览了该页面的访问次数。如果一次访问中多次浏览同一页面，只统计一次。" class="glyphicon glyphicon-question-sign" style="color: rgb(206, 207, 203);"></span></div><h4 id="d_nv"></h4></td>
+									<td width="16.7%"><div style="color: #777;">平均访问时长 <span data-toggle="tooltip" data-placement="auto" title="访客在这个页面上的平均停留时间，不是整个网站。" class="glyphicon glyphicon-question-sign" style="color: rgb(206, 207, 203);"></span></div><h4 id="d_atop"></h4></td>
+									<td width="16.7%"><div style="color: #777;">跳出率 <span data-toggle="tooltip" data-placement="auto" title="以该页为起始页后马上离开的百分比。" class="glyphicon glyphicon-question-sign" style="color: rgb(206, 207, 203);"></span></div><h4 id="d_br"></h4></td>
+									<td width="16.7%"><div style="color: #777;">退出率 <span data-toggle="tooltip" data-placement="auto" title="查看该页面后离开网站的百分比。" class="glyphicon glyphicon-question-sign" style="color: rgb(206, 207, 203);"></span></div><h4 id="d_er"></h4></td>
+									<td width="16.7%"><div style="color: #777;">页面性能响应(秒) <span data-toggle="tooltip" data-placement="auto" title="生成页面的平均时间。" class="glyphicon glyphicon-question-sign" style="color: rgb(206, 207, 203);"></span></div><h4 id="d_atg"></h4></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div id="btn_group" class="btn-group" style="padding: 5px 0 0 30px;">
+						<div class="btn-group">
+							<button id="btn_other" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+								<span id="urlTendency_btn_text">指标：浏览量(PV)</span>
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a id="btn_nh" href="javascript:urlTendency_btn('nh');">浏览量(PV)</a></li>
+								<li><a id="btn_nv" href="javascript:urlTendency_btn('nv');">唯一页面浏览量</a></li>
+								<li><a id="btn_atop" href="javascript:urlTendency_btn('atop');">平均访问时长</a></li>
+								<li><a id="btn_br" href="javascript:urlTendency_btn('br');">跳出率</a></li>
+								<li><a id="btn_er" href="javascript:urlTendency_btn('er');">退出率</a></li>
+								<li><a id="btn_atg" href="javascript:urlTendency_btn('atg');">页面性能响应(秒)</a></li>
+							</ul>
+					  </div>
+					  <input type="hidden" id="urlTendencyIndex" value="nh"/>
+					</div>
+					<div id="urlTrend" style="height: 400px;"></div>
+					<table id="cs_table" class="datatable">
+					</table>
+				</div>
+				<div id="searchModuleData" style="display: none;">
+
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../common/js/page/searchSummary.js"></script>
+</html>
