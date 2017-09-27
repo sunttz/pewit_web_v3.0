@@ -16,7 +16,7 @@ function ajaxCsTable(){
 			var id = module.id;
 			var name = module.name;
 			var idaction = module.idaction;
-            csData.push({id:id,oldModule:'<span title="'+name+'">'+cutStr(name,50)+'</span>',operate:'<button class="btn btn-info">&nbsp;&nbsp;&nbsp;修改&nbsp;&nbsp;&nbsp;</button>'});
+            csData.push({id:id,oldModule:'<span title="'+name+'">'+cutStr(name,50)+'</span>',operate:'<button id="showModal'+idaction+'" class="btn btn-info" onclick="showModal(\''+idaction+'\',\''+name+'\')">&nbsp;&nbsp;&nbsp;修改&nbsp;&nbsp;&nbsp;</button>'});
 		}
         initCsTable(csData);
 	});
@@ -30,6 +30,38 @@ function initCsTable(csData){
 		"data": csData, //必须
 		"displayNum": 15, //必须  默认 10
 		"groupDataNum": 9 //可选  默认 10
+	});
+}
+
+// 展示模块修改窗口
+function showModal(idaction,name) {
+	$("#idaction").val(idaction);
+	$("#oldModule").text(name);
+    $("#newModule").val(name);
+	$("#updateModuleModal").modal('show');
+}
+
+// 更新模块名
+function updateModal(){
+	var idaction = $("#idaction").val();
+	var name = $("#newModule").val();
+	if(name == null || $.trim(name) == ""){
+		alert("模块名不可为空！");
+		return;
+	}
+	ajax("/pla/updateSiteModules.jhtml",{idaction:idaction,name:name},function(data){
+		// 更新成功
+		if(data == 1){
+			// 更新原模块名
+			var html = '<span title="'+name+'">'+cutStr(name,50)+'</span>';
+			$("#showModal"+idaction).parent("td").prev().html(html);
+            $("#showModal"+idaction).click(function(){
+            	showModal(idaction,name);
+			});
+            $("#updateModuleModal").modal('hide');
+		}else{
+            alert("更新失败，请联系管理员!");
+		}
 	});
 }
 // URL详情表end

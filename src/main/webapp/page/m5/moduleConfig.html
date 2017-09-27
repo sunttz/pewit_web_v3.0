@@ -15,20 +15,59 @@
     </style>
 </head>
 <body>
-<div class="main">
-    <div id="content-header-wrapper" class="content-header-wrapper">
-        <div id="content-header" style="padding: 10px 10px 0 10px;">
-            <div style="line-height: 18px;">
-                <div style="float: left;padding: 0;font-size: 14px;font-weight: bold;">受访模块配置</div>
+    <div class="main">
+        <div id="content-header-wrapper" class="content-header-wrapper">
+            <div id="content-header" style="padding: 10px 10px 0 10px;">
+                <div style="line-height: 18px;">
+                    <div style="float: left;padding: 0;font-size: 14px;font-weight: bold;">受访模块配置</div>
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+        <div class="main-content">
+            <table id="cs_table" class="datatable">
+            </table>
+        </div>
+    </div>
+    <div class="modal fade" id="updateModuleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        更新受访模块
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        <input type="hidden" id="idaction" value="">
+                        <div class="form-group">
+                            <label for="oldModule" class="col-sm-2 control-label">原模块名</label>
+                            <div class="col-sm-10" style="margin-top: 5px;">
+                                <span id="oldModule" style="word-wrap:break-word;word-break:break-all;"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="newModule" class="col-sm-2 control-label">新模块名</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="newModule" onkeydown="if(event.keyCode==13) return false;">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="updateModal()">
+                        提交更改
+                    </button>
+                </div>
             </div>
         </div>
-        <div style="clear: both;"></div>
     </div>
-    <div class="main-content">
-        <table id="cs_table" class="datatable">
-        </table>
-    </div>
-</div>
 </body>
 <script type="text/javascript" src="../../common/js/page/moduleConfig.js"></script>
 </html>
