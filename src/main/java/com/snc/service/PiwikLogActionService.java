@@ -20,4 +20,12 @@ public interface PiwikLogActionService {
      * @return
      */
     List<Map<String, Object>> selectSiteModules(@Param("idsite") Integer idsite);
+
+    /**
+     * 查询name值
+     * @param type 1为url，4为模块
+     * @return
+     */
+    List<Map<String, Object>> selectNamesByType(@Param("type") Integer type);
+
 }

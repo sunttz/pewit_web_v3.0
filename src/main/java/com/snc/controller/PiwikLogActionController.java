@@ -58,4 +58,20 @@ public class PiwikLogActionController {
         }
         return result;
     }
+
+    /**
+     * 查询模块列表
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/getModulesByType")
+    @ResponseBody
+    public Object getModulesByType(HttpServletRequest request){
+        List<Map<String, Object>> maps = null;
+        String type = request.getParameter("type");
+        if(StringUtils.isNotBlank(type)){
+            maps = piwikLogActionService.selectNamesByType(new Integer(type));
+        }
+        return maps;
+    }
 }

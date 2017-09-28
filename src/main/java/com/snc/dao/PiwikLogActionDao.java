@@ -69,4 +69,11 @@ public interface PiwikLogActionDao {
      * @return
      */
     List<Map<String, Object>> selectSiteModules(@Param("idsite") Integer idsite);
+
+    /**
+     * 查询name值
+     * @param type 1为url，4为模块
+     * @return
+     */
+    List<String> selectNamesByType(@Param("type") Integer type);
 }

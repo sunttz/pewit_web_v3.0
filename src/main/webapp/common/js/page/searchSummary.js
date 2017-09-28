@@ -4,9 +4,11 @@ var urlDetail = null; // url详情数据,切换时间刷新
 $(function(){
 	idSite = getQueryString("siteId");
 	t = getQueryString("t");
+
+    moduleAutoSuggest(); // 模块查询条件自动提示
+    urlAutoSuggest();// url查询条件自动提示
     initDateCondition(); // 初始化时间
 	$("[data-toggle='tooltip']").tooltip();
-	
 	// 初始化url趋势图
 	var urlTrendChart = null;
 	init_visit();
@@ -609,3 +611,49 @@ function showJsmind(mind){
     jm.show(mind);
 }
 // 页面上下游end
+
+// 查询条件自动提示start
+function moduleAutoSuggest(){
+	ajax("/pla/getModulesByType.jhtml",{type:4},function (data) {
+        searchData = eval(data);
+        $(function () {
+            $('#searchModule').autocompleter({
+                highlightMatches: true,
+                source: searchData,
+                template: '{{ label }}',
+                hint: false,
+                empty: false,
+                limit: 10,
+                callback: function (value, index, selected) {
+                    if (selected) {
+                        $("#searchModule").val(selected.val);
+                        return false;
+                    }
+                }
+            });
+        });
+    })
+}
+
+function urlAutoSuggest(){
+    ajax("/pla/getModulesByType.jhtml",{type:1},function (data) {
+        moduleDatas = eval(data);
+        $(function () {
+            $('#searchUrl').autocompleter({
+                highlightMatches: true,
+                source: moduleDatas,
+                template: '{{ label }}',
+                hint: false,
+                empty: false,
+                limit: 10,
+                callback: function (value, index, selected) {
+                    if (selected) {
+                        $("#searchUrl").val(selected.val);
+                        return false;
+                    }
+                }
+            });
+        });
+    })
+}
+// 查询条件自动提示end

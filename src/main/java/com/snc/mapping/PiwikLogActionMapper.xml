@@ -57,6 +57,14 @@
       </if>
       ORDER BY idaction DESC) module,(select @i:=0) as it
   </select>
+  <!-- 查询name值 -->
+  <select id="selectNamesByType" parameterType="java.lang.Integer"
+          resultType="java.lang.String">
+    SELECT name FROM piwik_log_action WHERE 1=1
+    <if test="type != null and type !=''">
+      AND type = #{type,jdbcType=INTEGER}
+    </if>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
       WARNING - @mbggenerated
