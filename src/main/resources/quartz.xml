@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 将任务加载到quartz配置中 -->
+    <bean id="taskJob"
+          class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <!-- 任务完成之后是否依然保留到数据库，默认false -->
+        <property name="durability" value="true" />
+        <property name="requestsRecovery" value="true" />
+        <!-- 任务的实现类，必须 -->
+        <property name="jobClass">
+            <value>com.snc.quartz.CommJobBean</value>
+        </property>
+        <!-- 用来给作业提供数据支持的数据结构 -->
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="targetObject" value="piwikUrlModuleQuartz" /><!-- 调用的类 -->
+                <entry key="targetMethod" value="refreshPiwikUrlModule" /><!-- 调用类中的方法 -->
+            </map>
+        </property>
+        <property name="description" value="定时向piwik_url_module表跑数据" />
+    </bean>
+
+    <!-- 定义触发时间 -->
+    <bean id="taskTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <!-- 触发器与任务绑定 -->
+        <property name="jobDetail" ref="taskJob" />
+        <property name="cronExpression" value="0 0 0 * * ?" /><!-- 规则表达式 每天0点执行一次 -->
+    </bean>
+
+    <!-- quartz实例化5秒后执行一次job -->
+    <bean id="taskTrigger_immediately" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+        <property name="jobDetail" ref="taskJob" />
+        <property name="startDelay" value="5000" /> <!-- 启动延迟  单位/毫秒-->
+        <property name="repeatInterval" value="1000" /> <!-- 多久执行一次 单位/毫秒-->
+        <property name="repeatCount" value="0" />  <!--  重复次数  -->
+    </bean>
+
+    <!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序  -->
+    <bean id="taskScheduler" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.SchedulerFactoryBean"
+          destroy-method="destroy">
+        <property name="overwriteExistingJobs" value="true" />
+        <!-- 启动延时 -->
+        <property name="startupDelay" value="5" />
+        <!-- 是否自动启动 -->
+        <property name="autoStartup" value="true" />
+        <!-- 启动的定时器 -->
+        <property name="triggers">
+            <list>
+                <ref bean="taskTrigger" />
+                <ref bean="taskTrigger_immediately" />
+            </list>
+        </property>
+
+        <property name="applicationContextSchedulerContextKey" value="applicationContext" />
+    </bean>
+
+</beans>

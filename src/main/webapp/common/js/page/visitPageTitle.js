@@ -270,7 +270,8 @@ function anaCsTable(){
 	}else if(visitModuleIndex == "nograde"){
 		for(var k in visitModuleData){
 			var row = visitModuleData[k];
-			var label = "<span title='"+row.label+"'>"+cutStr(row.label,80)+"</span>";
+			//var label = "<span title='"+row.label+"'>"+cutStr(row.label,80)+"</span>";
+            var label = '<a href="../searchSummary.html?pageTitle='+encodeURIComponent(row.label)+'&siteId='+idSite+'&t='+t+'" title="'+row.label+'">'+cutStr(row.label,80)+'</a>';
 			var href = "moduleUpDown.html?siteId="+idSite+"&t="+t+"&grade=no&startDate="+sd+"&endDate="+ed+"&module="+encodeURIComponent(row.label);
 			// 由于页面模块名称改为手动设置，模块上下游无法显示，故隐藏
 			var plus = "<a href='"+href+"' title='查看模块上下游'><span class='glyphicon glyphicon-random'></span></a>";

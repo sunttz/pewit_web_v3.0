@@ -191,8 +191,8 @@ function anaCsTable(){
 			plus = "<a href='visitPageTitleSub.html?idSubtable="+sub+"&sd="+sd+"&ed="+ed+"&siteId="+idSite+"&t="+t+"&label="+encodeURIComponent(moduleName)+"' title='查看详情'><span class='glyphicon glyphicon-chevron-right'></span></a>";
 		}else{
 			var href = "moduleUpDown.html?siteId="+idSite+"&t="+t+"&startDate="+sd+"&endDate="+ed+"&module="+encodeURIComponent(moduleName);
-			// 由于页面模块名称改为手动设置，模块上下游无法显示，故隐藏
 			plus = "<a href='"+href+"' title='查看模块上下游'><span class='glyphicon glyphicon-random'></span></a>";
+            labelFormat = '<a href="../searchSummary.html?pageTitle='+encodeURIComponent(moduleName)+'&siteId='+idSite+'&t='+t+'" title="'+moduleName+'">'+cutStr(row.label,80)+'</a>';
 		}
 		var nh = row.nb_hits;
 		var nv = row.nb_visits;

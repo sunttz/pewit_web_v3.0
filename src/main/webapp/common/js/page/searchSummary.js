@@ -4,6 +4,7 @@ var urlDetail = null; // url详情数据,切换时间刷新
 $(function(){
 	idSite = getQueryString("siteId");
 	t = getQueryString("t");
+	var pageTitle = getQueryString("pageTitle");
 
     moduleAutoSuggest(); // 模块查询条件自动提示
     urlAutoSuggest();// url查询条件自动提示
@@ -12,6 +13,12 @@ $(function(){
 	// 初始化url趋势图
 	var urlTrendChart = null;
 	init_visit();
+
+	// 如果从概览页链接过来，直接展示模块信息
+	if(pageTitle != undefined && pageTitle != null && pageTitle != ""){
+		$("#searchModule").val(decodeURIComponent(pageTitle));
+        ajaxModuleUrl();
+	}
 });
 
 // 查询条件切换

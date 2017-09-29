@@ -285,22 +285,24 @@ function top10Visit(){
 	urls.push(encodeURI(p_2));
 	var p = getBulkRequestParam(urls);
 	ajax_jsonp(piwik_url,p,function(data){
+		console.info(data);
 		data = eval(data);
 		var totalPv = data[1].nb_pageviews;
 		var pages = data[0];
 		var tbodyHtml = "";
 		for(var k in pages){
 			var page = pages[k];
-			var label = page.label;
+			var module = page.label;
+			var label = module;
 			// label最长42字符
 			if(getStrLength(label) > 42){
 				label = cutStr(label,42);
 			}
-			var url = page.url;
+			var href = "searchSummary.html?pageTitle="+encodeURIComponent(module)+"&siteId="+idSite+"&t="+t;
 			var pv = page.nb_hits;
 			var prop = Math.round(pv / totalPv * 10000) / 100.00 + "%";
 			tbodyHtml += "<tr>";
-			tbodyHtml += "<td title='"+url+"'><a target='_blank' href='"+url+"'>"+label+"</a></td>";
+			tbodyHtml += "<td title='"+module+"'><a href='"+href+"'>"+label+"</a></td>";
 			tbodyHtml += "<td align='center'>"+pv+"</td>";
 			tbodyHtml += "<td><div title='"+prop+"' style='background-color:#87CEEB; width:"+prop+";'>"+prop+"</div></td>";
 			tbodyHtml += "</tr>";
@@ -336,15 +338,17 @@ function top10Entry(){
 		for(var j in entrys){
 			var entry = entrys[j];
 			var label = entry.label;
+			var module = label;
 			// label最长42字符
 			if(getStrLength(label) > 42){
 				label = cutStr(label, 42);
 			}
-			var url = entry.url;
+			//var url = entry.url;
+            var href = "searchSummary.html?pageTitle="+encodeURIComponent(module)+"&siteId="+idSite+"&t="+t;
 			var pv = entry.entry_nb_visits; // 贡献浏览量
 			var prop = Math.round(pv / totalPv * 10000) / 100.00 + "%";
 			tbodyHtml += "<tr>";
-			tbodyHtml += "<td title='"+url+"'><a target='_blank' href='"+url+"'>"+label+"</a></td>";
+			tbodyHtml += "<td title='"+module+"'><a href='"+href+"'>"+label+"</a></td>";
 			tbodyHtml += "<td align='center'>"+pv+"</td>";
 			tbodyHtml += "<td><div title='"+prop+"' style='background-color:#87CEEB; width:"+prop+";'>"+prop+"</div></td>";
 			tbodyHtml += "</tr>";
@@ -480,14 +484,16 @@ function top10WellPage(){
 		for(var k in pages){
 			var page = pages[k];
 			var label = page.label;
+			var module = label;
 			// label最长42字符
 			if(getStrLength(label) > 42){
 				label = cutStr(label,42);
 			}
-			var url = page.url;
+			//var url = page.url;
+            var href = "searchSummary.html?pageTitle="+encodeURIComponent(module)+"&siteId="+idSite+"&t="+t;
 			var atg = page.avg_time_generation;
 			tbodyHtml += "<tr>";
-			tbodyHtml += "<td title='"+url+"'><a target='_blank' href='"+url+"'>"+label+"</a></td>";
+			tbodyHtml += "<td title='"+module+"'><a href='"+href+"'>"+label+"</a></td>";
 			tbodyHtml += "<td align='center'>"+atg+"</td>";
 			tbodyHtml += "</tr>";
 		}
@@ -515,14 +521,16 @@ function top10BadPage(){
 		for(var k in pages){
 			var page = pages[k];
 			var label = page.label;
+			var module = label;
 			// label最长42字符
 			if(getStrLength(label) > 42){
 				label = cutStr(label,42);
 			}
-			var url = page.url;
+			//var url = page.url;
+            var href = "searchSummary.html?pageTitle="+encodeURIComponent(module)+"&siteId="+idSite+"&t="+t;
 			var atg = page.avg_time_generation;
 			tbodyHtml += "<tr>";
-			tbodyHtml += "<td title='"+url+"'><a target='_blank' href='"+url+"'>"+label+"</a></td>";
+			tbodyHtml += "<td title='"+module+"'><a href='"+href+"'>"+label+"</a></td>";
 			tbodyHtml += "<td align='center'>"+atg+"</td>";
 			tbodyHtml += "</tr>";
 		}

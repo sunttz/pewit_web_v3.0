@@ -52,4 +52,5 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
+    <import resource="quartz.xml"/>
 </beans>
