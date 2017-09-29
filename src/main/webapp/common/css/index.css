@@ -96,11 +96,11 @@ a cite{font-style: normal; *cursor:pointer;}
 
 /* 左侧菜单 */
 .side-menu{list-style: none; margin: 0; padding: 0; background-color: #393D49;position: relative;font-size: 14px;}
-.side-menu .menu-item{position: relative; margin: 0; padding: 0;} 
+.side-menu .menu-item{position: relative; margin: 0; padding: 0;}
 .side-menu .menu-item a{padding: 12px 5px 12px 15px; display: block; border-left: 5px solid transparent; color: #c2c2c2;border-bottom: 1px solid #393D49;} 
 .side-menu .menu-item a span{margin-left: 8px;} 
 .side-menu .menu-item:hover > a, .side-menu .menu-item.active > a{color: #fff; background: #4E5465; border-left-color: #33AECC;transition: all .3s; -webkit-transition: all .3s;} 
-.side-menu .menu-header{color: #fff; background: #2B2E37;height:39px;line-height:39px;padding-left:10px;border-bottom: 1px solid #2b2e37;} 
+.side-menu .menu-header{color: #fff; background: #2B2E37;height:39px;line-height:39px;padding-left:10px;border-bottom: 1px solid #2b2e37;}
 .side-menu .menu-item a .icon-right{width: auto; height: auto; padding: 0; margin-right: 10px; margin-top: 3px;float:right;} 
 .side-menu .menu-item .label{display: inline;padding:.3em;font-size: 75%;font-weight: 700;line-height: 1;color: #fff;text-align: center;white-space: nowrap;vertical-align: baseline;background: #33AECC;border-radius: .25em;margin-right: 5px;float: right!important;}
 .side-menu .menu-item.active > .menu-item-child{display: block;} 

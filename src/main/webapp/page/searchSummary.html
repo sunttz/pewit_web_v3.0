@@ -7,11 +7,11 @@
 	    		var idSite = "";
 	    		var t = "";
 	    </script>
-	    <script type="text/javascript" src="../../common/js/common1.js"></script>
-		<script type="text/javascript" src="../../common/lib/jsmind/js/jsmind.js"></script>
-		<script type="text/javascript" src="../../common/lib/jquery.autocompleter.min.js"></script>
-		<link type="text/css" rel="stylesheet" href="../../common/lib/jsmind/style/jsmind.css" />
-		<link type="text/css" rel="stylesheet" href="../../common/css/jquery.autocompleter.css" />
+	    <script type="text/javascript" src="../common/js/common.js"></script>
+		<script type="text/javascript" src="../common/lib/jsmind/js/jsmind.js"></script>
+		<script type="text/javascript" src="../common/lib/jquery.autocompleter.min.js"></script>
+		<link type="text/css" rel="stylesheet" href="../common/lib/jsmind/style/jsmind.css" />
+		<link type="text/css" rel="stylesheet" href="../common/css/jquery.autocompleter.css" />
 	    <style type="text/css">
 	    		.main {border-left: none;border-right: none;background-color: #ececec;height:'100%';padding-bottom: 5px;}
 	    		.content-header-wrapper {width: auto;left: 0px;background-color: #fff;height: 90px;border:1px solid #E8E8E8}
@@ -101,8 +101,11 @@
 					  <input type="hidden" id="urlTendencyIndex" value="nh"/>
 					</div>
 					<div id="urlTrend" style="height: 400px;"></div>
-					<table id="cs_table" class="datatable">
+					<table id="cs_table" class="datatable" style="margin-bottom: 0px;">
 					</table>
+					<div style="border-bottom: 1px solid #eee;padding-left: 15px;">
+						<h5>模块上下游</h5>
+					</div>
 					<div id="jsmind_container" style="height: 600px;"></div>
 				</div>
 				<div id="searchModuleData" style="display: none;"></div>
@@ -130,5 +133,5 @@
 			</div>
 		</div>
 	</body>
-	<script type="text/javascript" src="../../common/js/page/searchSummary.js"></script>
+	<script type="text/javascript" src="../common/js/page/searchSummary.js"></script>
 </html>

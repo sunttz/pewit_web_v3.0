@@ -278,7 +278,7 @@ function jumpTrend(){
 // Top10受访页面start
 function top10Visit(){
 	var date = $("#date").val(); // 日期
-	var p_1 = "module=API&method=Actions.getPageUrls&idSite="+idSite+"&period=range&date="+date+"&format=json&token_auth="+t+"&filter_limit=10&filter_sort_column=nb_hits&filter_sort_order=desc&flat=1";
+	var p_1 = "module=API&method=Actions.getPageTitles&idSite="+idSite+"&period=range&date="+date+"&format=json&token_auth="+t+"&filter_limit=10&filter_sort_column=nb_hits&filter_sort_order=desc&flat=1";
 	var p_2 = "module=API&method=MultiSites.getOne&idSite="+idSite+"&period=range&date="+date+"&format=JSON&token_auth="+t;
 	var urls = new Array();
 	urls.push(encodeURI(p_1));
@@ -311,15 +311,15 @@ function top10Visit(){
 // 跳转受访页面
 function jumpVisitPage(){
 	parent.changeMenu("menu-child-33");
-	window.location.href = "m3/visitPage.html?siteId="+idSite+"&t="+t+"&source=page";
+	window.location.href = "m3/visitPageTitle.html?siteId="+idSite+"&t="+t+"&source=page";
 }
 // Top10受访页面end
    
 // Top10入口页面start
 function top10Entry(){
 	var date = $("#date").val(); // 日期
-	var p_1 = "module=API&method=Actions.getEntryPageUrls&idSite="+idSite+"&period=range&date="+date+"&format=JSON&token_auth="+t;
-	var p_2 = "module=API&method=Actions.getEntryPageUrls&idSite="+idSite+"&period=range&date="+date+"&format=JSON&token_auth="+t+"&filter_limit=10&filter_sort_column=entry_nb_visits&filter_sort_order=desc&flat=1";
+	var p_1 = "module=API&method=Actions.getEntryPageTitles&idSite="+idSite+"&period=range&date="+date+"&format=JSON&token_auth="+t;
+	var p_2 = "module=API&method=Actions.getEntryPageTitles&idSite="+idSite+"&period=range&date="+date+"&format=JSON&token_auth="+t+"&filter_limit=10&filter_sort_column=entry_nb_visits&filter_sort_order=desc&flat=1";
 	var urls = new Array();
 	urls.push(encodeURI(p_1));
 	urls.push(encodeURI(p_2));
@@ -469,7 +469,7 @@ function jumpDistrict(){
 // Top10最优性能页面start
 function top10WellPage(){
 	var date = $("#date").val(); // 日期
-	var p_1 = "module=API&method=Actions.getPageUrls&idSite="+idSite+"&period=range&date="+date+"&format=json&token_auth="+t+"&filter_limit=10&filter_sort_column=avg_time_generation&filter_sort_order=asc&flat=1";
+	var p_1 = "module=API&method=Actions.getPageTitles&idSite="+idSite+"&period=range&date="+date+"&format=json&token_auth="+t+"&filter_limit=10&filter_sort_column=avg_time_generation&filter_sort_order=asc&flat=1";
 	var urls = new Array();
 	urls.push(encodeURI(p_1));
 	var p = getBulkRequestParam(urls);
@@ -497,14 +497,14 @@ function top10WellPage(){
 // 跳转受访页面
 function jumpWellPage(){
 	parent.changeMenu("menu-child-33");
-	window.location.href = "m3/visitPage.html?siteId="+idSite+"&t="+t+"&source=wellPage";
+	window.location.href = "m3/visitPageTitle.html?siteId="+idSite+"&t="+t+"&source=wellPage";
 }
 // Top10最优性能页面end
 
 // Top10最差性能页面start
 function top10BadPage(){
 	var date = $("#date").val(); // 日期
-	var p_1 = "module=API&method=Actions.getPageUrls&idSite="+idSite+"&period=range&date="+date+"&format=json&token_auth="+t+"&filter_limit=10&filter_sort_column=avg_time_generation&filter_sort_order=desc&flat=1";
+	var p_1 = "module=API&method=Actions.getPageTitles&idSite="+idSite+"&period=range&date="+date+"&format=json&token_auth="+t+"&filter_limit=10&filter_sort_column=avg_time_generation&filter_sort_order=desc&flat=1";
 	var urls = new Array();
 	urls.push(encodeURI(p_1));
 	var p = getBulkRequestParam(urls);
@@ -532,6 +532,6 @@ function top10BadPage(){
 // 跳转受访页面
 function jumpBadPage(){
 	parent.changeMenu("menu-child-33");
-	window.location.href = "m3/visitPage.html?siteId="+idSite+"&t="+t+"&source=badPage";
+	window.location.href = "m3/visitPageTitle.html?siteId="+idSite+"&t="+t+"&source=badPage";
 }
 // Top10最差性能页面end
