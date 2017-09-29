@@ -133,14 +133,26 @@ function ajaxModuleUrl() {
     var searchVal = ""; // 查询值
     if(searchType == "module"){
         searchVal = $("#searchModule").val();
+        ajax("/pum/selectUrlByModule.jhtml",{module:searchVal},function (data) {
+			if(data != undefined && data != null && data != ""){
+				$("#moduleName").text(cutStr(searchVal,100));
+				$("#urlName").text(cutStr(data,100));
+			}
+        });
     }else if(searchType == "url"){
         searchVal = $("#searchUrl").val();
+        ajax("/pum/selectModuleByUrl.jhtml",{url:searchVal},function (data) {
+            if(data != undefined && data != null && data != ""){
+                $("#moduleName").text(cutStr(data,100));
+                $("#urlName").text(cutStr(searchVal,100));
+            }
+        });
     }
     if(searchVal == null || searchVal == ""){
         $("#infoModal").modal('show');
         return;
     }
-    $("#searchVal").text("【"+cutStr(searchVal,50)+"】");
+    //$("#searchVal").text("【"+cutStr(searchVal,50)+"】");
 	if(searchType == "url"){
         ajaxUrlData(searchVal);
 	}else if(searchType == "module"){
