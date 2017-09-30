@@ -133,19 +133,23 @@ function ajaxModuleUrl() {
     var searchVal = ""; // 查询值
     if(searchType == "module"){
         searchVal = $("#searchModule").val();
+        $("#moduleName").text(cutStr(searchVal,100));
         ajax("/pum/selectUrlByModule.jhtml",{module:searchVal},function (data) {
-			if(data != undefined && data != null && data != ""){
-				$("#moduleName").text(cutStr(searchVal,100));
+			if(data != undefined && data != 'null' && data != ""){
 				$("#urlName").text(cutStr(data,100));
+			}else{
+                $("#urlName").text("无匹配项");
 			}
         });
     }else if(searchType == "url"){
         searchVal = $("#searchUrl").val();
+        $("#urlName").text(cutStr(searchVal,100));
         ajax("/pum/selectModuleByUrl.jhtml",{url:searchVal},function (data) {
-            if(data != undefined && data != null && data != ""){
+            if(data != undefined && data != 'null' && data != ""){
                 $("#moduleName").text(cutStr(data,100));
-                $("#urlName").text(cutStr(searchVal,100));
-            }
+            }else{
+                $("#moduleName").text("无匹配项");
+			}
         });
     }
     if(searchVal == null || searchVal == ""){
