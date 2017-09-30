@@ -30,8 +30,8 @@ function ajax(url, param, callback) {
 		data: param,  
 		dataType: 'json',
 		success: callback,  
-		error: function () {  
-			alert("请求异常.."); 
+		error: function () {
+			console.info("请求异常..");
 		}
 	});  
 }  
@@ -45,8 +45,8 @@ function ajax_jsonp(url, param, callback) {
 		dataType: "jsonp",
 		jsonp: "callback",
 		success: callback,  
-		error: function () {  
-			alert("请求异常.."); 
+		error: function () {
+            console.info("请求异常..");
 		}
 	});  
 }
