@@ -21,6 +21,8 @@ $(document).ready(function(){
 	top10WellPage();
 	// 加载top10最差性能页面
 	top10BadPage();
+	// 本月新增模块
+    monthModule();
 });
 // 图表自适应
 window.onresize = function(){
@@ -285,7 +287,7 @@ function top10Visit(){
 	urls.push(encodeURI(p_2));
 	var p = getBulkRequestParam(urls);
 	ajax_jsonp(piwik_url,p,function(data){
-		console.info(data);
+		//console.info(data);
 		data = eval(data);
 		var totalPv = data[1].nb_pageviews;
 		var pages = data[0];
@@ -543,3 +545,26 @@ function jumpBadPage(){
 	window.location.href = "m3/visitPageTitle.html?siteId="+idSite+"&t="+t+"&source=badPage";
 }
 // Top10最差性能页面end
+
+// 本月新增模块start
+function monthModule(){
+    ajax("/pla/getNewModules.jhtml",{idSite:idSite},function(data){
+        data = eval(data);
+        //console.info(data);
+        var tbodyHtml = "";
+        for(var k in data){
+            var module = data[k];
+            var label = module;
+            // label最长80字符
+            if(getStrLength(label) > 80){
+                label = cutStr(label,80);
+            }
+            var href = "searchSummary.html?pageTitle="+encodeURIComponent(module)+"&siteId="+idSite+"&t="+t+"&type=thisMonth";
+            tbodyHtml += "<tr>";
+            tbodyHtml += "<td title='"+module+"'><a href='"+href+"'>"+label+"</a></td>";
+            tbodyHtml += "</tr>";
+        }
+        $("#monthModule_tbody").html(tbodyHtml);
+    });
+}
+// 本月新增模块end

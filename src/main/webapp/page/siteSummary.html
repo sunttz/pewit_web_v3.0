@@ -19,7 +19,7 @@
 		.overview-gap {clear: both; background-color: #ececec; height: 16px;}
 		.overview-detail{}
 		.control-bar-wrapper{border: 1px solid #dfe0e0; padding: 0;background-color: #fff;}
-		.index-site{background-color: #ececec; height: 1210px;}
+		.index-site{background-color: #ececec; height: 1620px;}
 		.table-grid-item {margin-top: 1px; background-color: #fff; height: 392px;}
 		#today-flow-table tr.thead td{border-top:0px;} 
     </style>
@@ -187,6 +187,30 @@
 					<div style="float: right;width: 49%;">
 						<div class="table-grid-item">
 							<div class="title" style="height: 35px;">
+								<div style="float: left;font-weight: bold;font-size: 14px;padding: 5px 0 0 10px;">本月新增模块</div>
+								<div style="float: right;padding: 5px 10px 0 0;">
+								</div>
+								<div style="clear: both;"></div>
+							</div>
+							<div id="monthModule" style="height:350px;padding: 0 10px 0 10px;" class="table-responsive">
+								<table class="table table-condensed">
+									<thead>
+									<tr>
+										<th width="90%">模块</th>
+									</tr>
+									</thead>
+									<tbody id="monthModule_tbody">
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="overview-gap"></div>
+				<div class="fourth-row">
+					<div style="float: left;width: 49%;">
+						<div class="table-grid-item">
+							<div class="title" style="height: 35px;">
 								<div style="float: left;font-weight: bold;font-size: 14px;padding: 5px 0 0 10px;">Top10入口模块</div>
 								<div style="float: right;padding: 5px 10px 0 0;">
 									<!--
@@ -198,17 +222,21 @@
 							<div id="top10_entry" style="height:365px;padding: 0 10px 0 10px;" class="table-responsive">
 								<table class="table table-condensed">
 									<thead>
-										<tr>
-											<th width="60%">入口模块</th>
-											<th width="20%">浏览量(PV)</th>
-											<th width="20%">占比</th>
-										</tr>
+									<tr>
+										<th width="60%">入口模块</th>
+										<th width="20%">浏览量(PV)</th>
+										<th width="20%">占比</th>
+									</tr>
 									</thead>
 									<tbody id="top10_entry_tbody">
 									</tbody>
 								</table>
 							</div>
 						</div>
+					</div>
+					<div style="float: right;width: 49%;">
+						<!--<div class="table-grid-item">
+						</div>-->
 					</div>
 				</div>
 			</div>

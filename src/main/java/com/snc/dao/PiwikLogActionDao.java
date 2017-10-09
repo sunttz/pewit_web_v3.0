@@ -86,7 +86,8 @@ public interface PiwikLogActionDao {
     /**
      * 查询大于idaction值的模块名
      * @param idaction
+     * @param idSite
      * @return
      */
-    List<String> selectNamesByIdaction(@Param("idaction") Integer idaction);
+    List<String> selectNamesByIdaction(@Param("idaction") Integer idaction, @Param("idSite") Integer idSite);
 }

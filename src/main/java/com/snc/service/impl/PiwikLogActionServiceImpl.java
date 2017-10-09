@@ -73,11 +73,11 @@ public class PiwikLogActionServiceImpl implements PiwikLogActionService {
     }
 
     @Override
-    public List<String> selectNamesThisMonth() {
+    public List<String> selectNamesThisMonth(Integer idSite) {
         List<String> names = new ArrayList<>();
         String idaction = piwikVariableDao.selectByName("pla_idaction");
         if(StringUtils.isNotBlank(idaction)){
-            names = piwikLogActionDao.selectNamesByIdaction(Integer.parseInt(idaction));
+            names = piwikLogActionDao.selectNamesByIdaction(Integer.parseInt(idaction), idSite);
         }
         return names;
     }

@@ -5,10 +5,25 @@ $(function(){
 	idSite = getQueryString("siteId");
 	t = getQueryString("t");
 	var pageTitle = getQueryString("pageTitle");
+	var type = getQueryString("type");
 
     moduleAutoSuggest(); // 模块查询条件自动提示
     urlAutoSuggest();// url查询条件自动提示
     initDateCondition(); // 初始化时间
+	// 如果是本月新增模块链接过来，默认时间为本月1号到今天
+	if(type == "thisMonth"){
+		$("#dateDiv button").removeClass("active");
+        var currDate = new Date();
+        var year = currDate.getFullYear();
+        var month = currDate.getMonth()+1;
+        month = (month < 10)?('0' + month):month;
+        var day = currDate.getDate();
+        day = (day < 10)?('0' + day):day;
+        var sd = year + "-" + month + "-01";
+        var ed = year + "-" + month + "-" +day;
+        $("#startDate").val(sd);
+        $("#endDate").val(ed);
+	}
 	$("[data-toggle='tooltip']").tooltip();
 	// 初始化url趋势图
 	var urlTrendChart = null;

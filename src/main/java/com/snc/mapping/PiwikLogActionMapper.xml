@@ -71,9 +71,14 @@
   <!-- 查询本月新增模块名 -->
   <select id="selectNamesByIdaction" parameterType="java.lang.Integer"
           resultType="java.lang.String">
-    SELECT name from piwik_log_action WHERE type = 4
+    SELECT pla.name from piwik_log_action pla
+      LEFT JOIN piwik_url_module pum ON pla.name = pum.module_name
+    WHERE pla.type = 4
     <if test="idaction != null and idaction !=''">
-      AND idaction > #{idaction,jdbcType=INTEGER}
+      AND pla.idaction > #{idaction,jdbcType=INTEGER}
+    </if>
+    <if test="idSite != null and idSite !=''">
+      AND pum.idsite = #{idSite,jdbcType=INTEGER}
     </if>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -83,7 +84,11 @@ public class PiwikLogActionController {
     @RequestMapping(value = "/getNewModules")
     @ResponseBody
     public Object getNewModules(HttpServletRequest request){
-        List<String> names = piwikLogActionService.selectNamesThisMonth();
+        List<String> names = new ArrayList<>();
+        String idSite = request.getParameter("idSite");
+        if(StringUtils.isNotBlank(idSite)){
+            names = piwikLogActionService.selectNamesThisMonth(Integer.parseInt(idSite));
+        }
         return names;
     }
 }

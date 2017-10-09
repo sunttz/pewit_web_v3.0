@@ -36,8 +36,9 @@ public interface PiwikLogActionService {
 
     /**
      * 查询新增模块名
+     * @param idSite
      * @return
      */
-    List<String> selectNamesThisMonth();
+    List<String> selectNamesThisMonth(Integer idSite);
 
 }
