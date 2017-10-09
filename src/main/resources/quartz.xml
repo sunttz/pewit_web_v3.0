@@ -34,10 +34,46 @@
         <property name="cronExpression" value="0 0 0 * * ?" /><!-- 规则表达式 每天0点执行一次 -->
     </bean>
 
+    <!-- piwik_valiable定时任务 -->
+    <bean id="plaIdactionJob"
+          class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <!-- 任务完成之后是否依然保留到数据库，默认false -->
+        <property name="durability" value="true" />
+        <property name="requestsRecovery" value="true" />
+        <!-- 任务的实现类，必须 -->
+        <property name="jobClass">
+            <value>com.snc.quartz.CommJobBean</value>
+        </property>
+        <!-- 用来给作业提供数据支持的数据结构 -->
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="targetObject" value="piwikLogActionQuartz" /><!-- 调用的类 -->
+                <entry key="targetMethod" value="updatePlaIdaction" /><!-- 调用类中的方法 -->
+            </map>
+        </property>
+        <property name="description" value="查询piwik_log_action表idaction最大值，存储到piwik_variable表pla_idaction值下" />
+    </bean>
+
+    <!-- piwik_valiable触发时间 -->
+    <bean id="plaIdactionTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <!-- 触发器与任务绑定 -->
+        <property name="jobDetail" ref="plaIdactionJob" />
+        <property name="cronExpression" value="0 0 0 1 * ?" /><!-- 规则表达式 每月1日0点执行一次 -->
+    </bean>
+
     <!-- quartz实例化5秒后执行一次job -->
     <bean id="taskTrigger_immediately" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
         <property name="jobDetail" ref="taskJob" />
         <property name="startDelay" value="5000" /> <!-- 启动延迟  单位/毫秒-->
+        <property name="repeatInterval" value="1000" /> <!-- 多久执行一次 单位/毫秒-->
+        <property name="repeatCount" value="0" />  <!--  重复次数  -->
+    </bean>
+
+    <!-- quartz实例化5秒后执行一次plaIdactionJob -->
+    <bean id="plaIdactionTrigger_immediately" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+        <property name="jobDetail" ref="plaIdactionJob" />
+        <property name="startDelay" value="8000" /> <!-- 启动延迟  单位/毫秒-->
         <property name="repeatInterval" value="1000" /> <!-- 多久执行一次 单位/毫秒-->
         <property name="repeatCount" value="0" />  <!--  重复次数  -->
     </bean>
@@ -56,6 +92,8 @@
             <list>
                 <ref bean="taskTrigger" />
                 <ref bean="taskTrigger_immediately" />
+                <ref bean="plaIdactionTrigger" />
+                <ref bean="plaIdactionTrigger_immediately" />
             </list>
         </property>
 

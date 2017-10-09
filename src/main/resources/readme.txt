@@ -4,7 +4,7 @@
 
 piwik新增表：
 
-CREATE TABLE piwik.piwik_url_module
+CREATE TABLE piwik_url_module
 (
     idsite INT(10) UNSIGNED NOT NULL,
     url_id INT(10) UNSIGNED NOT NULL,
@@ -13,3 +13,11 @@ CREATE TABLE piwik.piwik_url_module
     module_name TEXT
 );
 alter table piwik_url_module convert to charset utf8;
+
+create table piwik_variable
+(
+	name varchar(32) not null,
+	value varchar(32) not null
+);
+-- 定时任务查询piwik_log_action表中idaction最大值，存储于此
+INSERT INTO piwik_variable VALUES ('pla_idaction','0');

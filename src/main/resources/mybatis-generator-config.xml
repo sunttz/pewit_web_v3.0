@@ -37,7 +37,7 @@
         </javaClientGenerator>
 
         <!-- 相关表的配置 -->
-        <table tableName="piwik_url_module" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+        <table tableName="piwik_variable" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false"/>
     </context>
 </generatorConfiguration>

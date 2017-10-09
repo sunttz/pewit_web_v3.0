@@ -76,4 +76,17 @@ public interface PiwikLogActionDao {
      * @return
      */
     List<String> selectNamesByType(@Param("type") Integer type);
+
+    /**
+     * 查询idaction的最大值
+     * @return
+     */
+    int selectIdactionMax();
+
+    /**
+     * 查询大于idaction值的模块名
+     * @param idaction
+     * @return
+     */
+    List<String> selectNamesByIdaction(@Param("idaction") Integer idaction);
 }

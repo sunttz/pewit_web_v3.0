@@ -74,4 +74,16 @@ public class PiwikLogActionController {
         }
         return maps;
     }
+
+    /**
+     * 查询本月新增模块名
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/getNewModules")
+    @ResponseBody
+    public Object getNewModules(HttpServletRequest request){
+        List<String> names = piwikLogActionService.selectNamesThisMonth();
+        return names;
+    }
 }

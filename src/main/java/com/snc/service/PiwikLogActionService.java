@@ -28,4 +28,16 @@ public interface PiwikLogActionService {
      */
     List<Map<String, Object>> selectNamesByType(@Param("type") Integer type);
 
+    /**
+     * 查询piwik_log_action的idaction字段最大值，更新到piwik_variable的pla_idaction中
+     * @return
+     */
+    int updatePlaIdaction();
+
+    /**
+     * 查询新增模块名
+     * @return
+     */
+    List<String> selectNamesThisMonth();
+
 }

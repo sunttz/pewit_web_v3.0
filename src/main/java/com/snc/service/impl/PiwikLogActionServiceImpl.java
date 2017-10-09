@@ -1,10 +1,15 @@
 package com.snc.service.impl;
 
 import com.snc.dao.PiwikLogActionDao;
+import com.snc.dao.PiwikVariableDao;
 import com.snc.entity.PiwikLogAction;
+import com.snc.entity.PiwikVariable;
 import com.snc.service.PiwikLogActionService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,10 +20,13 @@ import java.util.Map;
  * Created by taotaosun on 2017/9/21.
  */
 @Service("piwikLogActionServiceImpl")
+@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 public class PiwikLogActionServiceImpl implements PiwikLogActionService {
 
     @Autowired
     PiwikLogActionDao piwikLogActionDao;
+    @Autowired
+    PiwikVariableDao piwikVariableDao;
 
     @Override
     public PiwikLogAction selectByPrimaryKey(Integer idaction) {
@@ -51,6 +59,27 @@ public class PiwikLogActionServiceImpl implements PiwikLogActionService {
             modules.add(row);
         }
         return modules;
+    }
+
+    @Override
+    public int updatePlaIdaction() {
+        int result = 0;
+        int maxVal = piwikLogActionDao.selectIdactionMax();
+        if(maxVal >= 0){
+            PiwikVariable piwikVariable = new PiwikVariable("pla_idaction", String.valueOf(maxVal));
+            result = piwikVariableDao.updateValue(piwikVariable);
+        }
+        return result;
+    }
+
+    @Override
+    public List<String> selectNamesThisMonth() {
+        List<String> names = new ArrayList<>();
+        String idaction = piwikVariableDao.selectByName("pla_idaction");
+        if(StringUtils.isNotBlank(idaction)){
+            names = piwikLogActionDao.selectNamesByIdaction(Integer.parseInt(idaction));
+        }
+        return names;
     }
 
     /**
