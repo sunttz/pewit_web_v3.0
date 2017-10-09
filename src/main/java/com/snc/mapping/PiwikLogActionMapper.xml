@@ -60,7 +60,7 @@
   <!-- 查询name值 -->
   <select id="selectNamesByType" parameterType="java.lang.Integer"
           resultType="java.lang.String">
-    SELECT name FROM piwik_log_action WHERE 1=1
+    SELECT concat(case url_prefix WHEN 0 THEN 'http://' WHEN 1 THEN 'http://www.' WHEN 2 THEN 'https://' WHEN 3 THEN 'https://www.' ELSE '' END, name) name FROM piwik_log_action WHERE 1=1
     <if test="type != null and type !=''">
       AND type = #{type,jdbcType=INTEGER}
     </if>

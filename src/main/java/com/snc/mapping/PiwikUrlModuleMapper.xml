@@ -86,7 +86,7 @@
       SELECT
         pllva.idsite,
         pllva.idaction_url           url_id,
-        concat('http://', pla1.name) url_name,
+        concat(case pla1.url_prefix WHEN 0 THEN 'http://' WHEN 1 THEN 'http://www.' WHEN 2 THEN 'https://' WHEN 3 THEN 'https://www.' ELSE '' END, pla1.name) url_name,
         pllva.idaction_name          module_id,
         pla2.name                    module_name
       FROM

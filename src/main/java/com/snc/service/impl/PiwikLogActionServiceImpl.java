@@ -50,10 +50,6 @@ public class PiwikLogActionServiceImpl implements PiwikLogActionService {
         Map<String,Object> row = null;
         for(String name : names){
             row = new HashMap<>();
-            // url前补充http://头
-            if(type == 1){
-                name = "http://" + name;
-            }
             row.put("val",name);
             row.put("label",subStringByByte(name,50));
             modules.add(row);
