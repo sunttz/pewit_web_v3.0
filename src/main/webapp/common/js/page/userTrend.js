@@ -4,9 +4,10 @@ $(function(){
 	idSite = getQueryString("siteId");
 	t = getQueryString("t");
 	label = getQueryString("label");
+	label = decodeURIComponent(label);
 	//默认最近7天
 	$("#date").html(getDateStr(-6)+" ~ "+getDateStr(0));
-    	$("#startDate").val(getDateStr(-6));
+	$("#startDate").val(getDateStr(-6));
 	$("#endDate").val(getDateStr(0));
 	$("#userLabel").html(label);
 	// 初始化用户趋势图

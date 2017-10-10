@@ -71,7 +71,7 @@
   <!-- 查询本月新增模块名 -->
   <select id="selectNamesByIdaction" parameterType="java.lang.Integer"
           resultType="java.lang.String">
-    SELECT pla.name from piwik_log_action pla
+    SELECT DISTINCT pla.name from piwik_log_action pla
       LEFT JOIN piwik_url_module pum ON pla.name = pum.module_name
     WHERE pla.type = 4
     <if test="idaction != null and idaction !=''">

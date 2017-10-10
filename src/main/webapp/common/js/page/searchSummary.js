@@ -144,6 +144,7 @@ window.onresize = function(){
 
 // 请求模块/url数据
 function ajaxModuleUrl() {
+	$("#noDataDiv").text("查询中...");
     var searchType = $("#searchType").val(); // 查询类型
     var searchVal = ""; // 查询值
     if(searchType == "module"){
