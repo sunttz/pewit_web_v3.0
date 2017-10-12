@@ -4,6 +4,7 @@
 
 piwik新增表：
 
+-- 模块与url对应关系表
 CREATE TABLE piwik_url_module
 (
     idsite INT(10) UNSIGNED NOT NULL,
@@ -14,6 +15,7 @@ CREATE TABLE piwik_url_module
 );
 alter table piwik_url_module convert to charset utf8;
 
+-- piwik_web配置变量表
 create table piwik_variable
 (
 	name varchar(32) not null,
