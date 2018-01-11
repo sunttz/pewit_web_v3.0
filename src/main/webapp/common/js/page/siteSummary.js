@@ -425,7 +425,8 @@ function init_mapDistribution(){
 }
 
 var anhui = {'anqing':'安庆市','bengbu':'蚌埠市','chuzhou':'滁州市','chizhou':'池州市','bozhou':'亳州市','hefei':'合肥市','huaibei':'淮北市','huainan':'淮南市','huangshan':'黄山市','luan':'六安市','maanshan':'马鞍山市','suzhou':'宿州市','tongling':'铜陵市','wuhu':'芜湖市','xuancheng':'宣城市'};
-function ajax_mapDistribution(){
+
+/*function ajax_mapDistribution(){
 	var date = $("#date").val(); // 日期
 	var param = {module:"API",method:"UserCountry.getCity",idSite:idSite,period:"range",date:date,format:"json",token_auth:t};
 	var maxVisits = 0;
@@ -471,6 +472,52 @@ function ajax_mapDistribution(){
 		map_distribution_chart.setOption(option);
 		map_distribution_chart.hideLoading();
 	});
+}*/
+
+function ajax_mapDistribution(){
+    var date = $("#date").val(); // 日期
+    var param = {module:"API",method:"CustomVariables.getCustomVariablesValuesFromNameId",idSite:idSite,period:"range",date:date,format:"json",token_auth:t,idSubtable:1};
+    var maxVisits = 0;
+    var cities = new Array();
+    var option = {};
+    map_distribution_chart.showLoading();
+    ajax_jsonp(piwik_url,param,function(data){
+        data = eval(data);
+        for(var key in data){
+            var city = data[key];
+			var city_name = city.label;
+			var city_name_cn = anhui[city_name];
+			if(city_name_cn != null && city_name_cn != ""){
+				var nb_visits = city.nb_visits;
+				if(nb_visits > maxVisits){
+					maxVisits = nb_visits;
+				}
+				cities.push({name:city_name_cn,value:nb_visits});
+			}
+
+        }
+        if(maxVisits != 0){
+            option = {
+                visualMap : {
+                    max : maxVisits
+                },
+                series : [{
+                    data : cities
+                }]
+            };
+        }else{
+            option = {
+                visualMap : {
+                    max : 100
+                },
+                series : [{
+                    data : []
+                }]
+            };
+        }
+        map_distribution_chart.setOption(option);
+        map_distribution_chart.hideLoading();
+    });
 }
 
 // 跳转地域分布详情

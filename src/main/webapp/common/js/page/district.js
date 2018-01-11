@@ -68,9 +68,10 @@ window.onresize = function(){
 function ajax_district(){
 	var startDate = $("#startDate").val();
 	var endDate = $("#endDate").val();
-	var param = {module:'API',method:'UserCountry.getCity',idSite:idSite,period:'range',date:startDate+','+endDate,format:'json',token_auth:t,filter_sort_column:'nb_visits',filter_sort_order:'desc'};
+	var param = {module:"API",method:"CustomVariables.getCustomVariablesValuesFromNameId",idSite:idSite,period:"range",date:startDate+','+endDate,format:"json",token_auth:t,idSubtable:1,filter_sort_column:'nb_visits',filter_sort_order:'desc'};
 	ajax_jsonp(piwik_url, param, function(data){
 		data = eval(data);
+		console.info(data);
 		districtData = data;
 		ana_map(); // 加载区域分布图
 		anaCsTable(); // 加载指标详情表
@@ -118,68 +119,59 @@ function ana_map(){
 		name = "访问";
 		for(var key in districtData){
 			var city = districtData[key];
-			// 安徽
-			if(city.region == '01'){
-				var city_name = city.city_name.toLowerCase();
-				var city_name_cn = anhui[city_name];
-				if(city_name_cn != null && city_name_cn != ""){
-					var nb_visits = city.nb_visits;
-					if(nb_visits > maxVal){
-						maxVal = nb_visits;
-					}
-					cities.push({name:city_name_cn,value:nb_visits});
+			var city_name = city.label.toLowerCase();
+			var city_name_cn = anhui[city_name];
+			if(city_name_cn != null && city_name_cn != ""){
+				var nb_visits = city.nb_visits;
+				if(nb_visits > maxVal){
+					maxVal = nb_visits;
 				}
+				cities.push({name:city_name_cn,value:nb_visits});
 			}
 		}
 	}else if(districtMapIndex == "na"){
 		name = "活动";
 		for(var key in districtData){
 			var city = districtData[key];
-			if(city.region == '01'){
-				var city_name = city.city_name.toLowerCase();
-				var city_name_cn = anhui[city_name];
-				if(city_name_cn != null && city_name_cn != ""){
-					var nb_actions = city.nb_actions;
-					if(nb_actions > maxVal){
-						maxVal = nb_actions;
-					}
-					cities.push({name:city_name_cn,value:nb_actions});
+			var city_name = city.label.toLowerCase();
+			var city_name_cn = anhui[city_name];
+			if(city_name_cn != null && city_name_cn != ""){
+				var nb_actions = city.nb_actions;
+				if(nb_actions > maxVal){
+					maxVal = nb_actions;
 				}
+				cities.push({name:city_name_cn,value:nb_actions});
 			}
 		}
 	}else if(districtMapIndex == "ana"){
 		name = "平均活动次数";
 		for(var key in districtData){
 			var city = districtData[key];
-			if(city.region == '01'){
-				var city_name = city.city_name.toLowerCase();
-				var city_name_cn = anhui[city_name];
-				if(city_name_cn != null && city_name_cn != ""){
-					var nv = city.nb_visits;
-					var na = city.nb_actions;
-					var ana = parseFloat((na / nv).toFixed(1));
-					if(ana > maxVal){
-						maxVal = ana;
-					}
-					cities.push({name:city_name_cn,value:ana});
+			var city_name = city.label.toLowerCase();
+			var city_name_cn = anhui[city_name];
+			if(city_name_cn != null && city_name_cn != ""){
+				var nv = city.nb_visits;
+				var na = city.nb_actions;
+				var ana = parseFloat((na / nv).toFixed(1));
+				if(ana > maxVal){
+					maxVal = ana;
 				}
+				cities.push({name:city_name_cn,value:ana});
 			}
 		}
 	}else if(districtMapIndex == "atos"){
 		name = "网站平均停留时间";
 		for(var key in districtData){
 			var city = districtData[key];
-			if(city.region == '01'){
-				var city_name = city.city_name.toLowerCase();
-				var city_name_cn = anhui[city_name];
-				if(city_name_cn != null && city_name_cn != ""){
-					var nv = city.nb_visits;
-					var atos = parseInt((city.sum_visit_length / nv).toFixed(0));
-					if(atos > maxVal){
-						maxVal = atos;
-					}
-					cities.push({name:city_name_cn,value:atos});
+			var city_name = city.label.toLowerCase();
+			var city_name_cn = anhui[city_name];
+			if(city_name_cn != null && city_name_cn != ""){
+				var nv = city.nb_visits;
+				var atos = parseInt((city.sum_visit_length / nv).toFixed(0));
+				if(atos > maxVal){
+					maxVal = atos;
 				}
+				cities.push({name:city_name_cn,value:atos});
 			}
 		}
 	}
@@ -241,7 +233,7 @@ function anaCsTable(){
 	for(var k in districtData){
 		var v = districtData[k];
 		
-		var cn = v.city_name;
+		var cn = v.label;
 		var city_name = anhui[cn.toLowerCase()];
 		if(city_name == null){
 			city_name = cn;
