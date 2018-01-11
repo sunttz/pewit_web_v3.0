@@ -80,6 +80,9 @@ function getStrLength (str) {
  * @param len: 需要截取的长度 
  */
 function cutStr(str, len) {
+	if(str == undefined || str == null){
+		return "";
+	}
     var str_length = 0;
     var str_len = 0;
     str_cut = new String();

@@ -95,6 +95,13 @@ function ajax_visitModule(){
 		data = eval(data);
 		visitModuleData = data;
 		//console.info(visitModuleData);
+		// for(var i in visitModuleData){
+		// 	var row = visitModuleData[i];
+		// 	var label = $.trim(row.label);
+		// 	if(label == "Page Name not defined" || label == "null" || label == null || label == "页面标题 未定义"){
+         //        visitModuleData.splice(i,1);
+		// 	}
+		// }
 		anaPieBar(); // 加载图表
 		anaCsTable(); // 加载详情表格
 	});

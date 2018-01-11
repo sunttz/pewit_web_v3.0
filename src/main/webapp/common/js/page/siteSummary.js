@@ -295,6 +295,10 @@ function top10Visit(){
 		for(var k in pages){
 			var page = pages[k];
 			var module = page.label;
+			// 隐藏未定义模块
+			// if(module == "Page Name not defined" || module == "页面标题 未定义"){
+			// 	continue;
+			// }
 			var label = module;
 			// label最长42字符
 			if(getStrLength(label) > 42){
@@ -340,6 +344,10 @@ function top10Entry(){
 		for(var j in entrys){
 			var entry = entrys[j];
 			var label = entry.label;
+            // 隐藏未定义模块
+            // if(label == "Page Name not defined" || label == "页面标题 未定义"){
+            //     continue;
+            // }
 			var module = label;
 			// label最长42字符
 			if(getStrLength(label) > 42){
@@ -487,6 +495,10 @@ function top10WellPage(){
 			var page = pages[k];
 			var label = page.label;
 			var module = label;
+            // 隐藏未定义模块
+            // if(module == "Page Name not defined" || module == "页面标题 未定义"){
+            //     continue;
+            // }
 			// label最长42字符
 			if(getStrLength(label) > 42){
 				label = cutStr(label,42);
@@ -524,6 +536,10 @@ function top10BadPage(){
 			var page = pages[k];
 			var label = page.label;
 			var module = label;
+            // 隐藏未定义模块
+            // if(module == "Page Name not defined" || module == "页面标题 未定义"){
+            //     continue;
+            // }
 			// label最长42字符
 			if(getStrLength(label) > 42){
 				label = cutStr(label,42);
