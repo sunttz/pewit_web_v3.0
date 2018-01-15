@@ -474,6 +474,7 @@ var anhui = {'anqing':'安庆市','bengbu':'蚌埠市','chuzhou':'滁州市','ch
 	});
 }*/
 
+var provincePv = 0; // 省公司访问量
 function ajax_mapDistribution(){
     var date = $("#date").val(); // 日期
     var param = {module:"API",method:"CustomVariables.getCustomVariablesValuesFromNameId",idSite:idSite,period:"range",date:date,format:"json",token_auth:t,idSubtable:1};
@@ -486,6 +487,12 @@ function ajax_mapDistribution(){
         for(var key in data){
             var city = data[key];
 			var city_name = city.label;
+			// 省公司单独展示
+			if(city_name == "anhui"){
+                provincePv = city.nb_visits;
+                $("#provincePv").text(provincePv);
+                continue;
+			}
 			var city_name_cn = anhui[city_name];
 			if(city_name_cn != null && city_name_cn != ""){
 				var nb_visits = city.nb_visits;

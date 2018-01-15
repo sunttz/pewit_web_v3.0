@@ -1,5 +1,5 @@
 var districtData = null; // 区域分布数据
-var anhui = {'anqing':'安庆市','bengbu':'蚌埠市','chuzhou':'滁州市','chizhou':'池州市','bozhou':'亳州市','hefei':'合肥市','huaibei':'淮北市','huainan':'淮南市','huangshan':'黄山市','luan':'六安市','maanshan':'马鞍山市','suzhou':'宿州市','tongling':'铜陵市','wuhu':'芜湖市','xuancheng':'宣城市'};
+var anhui = {'anqing':'安庆市','bengbu':'蚌埠市','chuzhou':'滁州市','chizhou':'池州市','bozhou':'亳州市','hefei':'合肥市','huaibei':'淮北市','huainan':'淮南市','huangshan':'黄山市','luan':'六安市','maanshan':'马鞍山市','suzhou':'宿州市','tongling':'铜陵市','wuhu':'芜湖市','xuancheng':'宣城市','anhui':'省公司'};
 $(function(){
 	idSite = getQueryString("siteId");
 	t = getQueryString("t");
@@ -71,7 +71,7 @@ function ajax_district(){
 	var param = {module:"API",method:"CustomVariables.getCustomVariablesValuesFromNameId",idSite:idSite,period:"range",date:startDate+','+endDate,format:"json",token_auth:t,idSubtable:1,filter_sort_column:'nb_visits',filter_sort_order:'desc'};
 	ajax_jsonp(piwik_url, param, function(data){
 		data = eval(data);
-		console.info(data);
+		//console.info(data);
 		districtData = data;
 		ana_map(); // 加载区域分布图
 		anaCsTable(); // 加载指标详情表
@@ -107,6 +107,7 @@ function init_map(){
     });
 }
 
+var provincePv = 0;
 // 解析加载地域分布图
 function ana_map(){
 	var districtMapIndex = $("#districtMapIndex").val(); // 指标
@@ -120,6 +121,12 @@ function ana_map(){
 		for(var key in districtData){
 			var city = districtData[key];
 			var city_name = city.label.toLowerCase();
+            // 省公司单独展示
+            if(city_name == "anhui"){
+                provincePv = city.nb_visits;
+                $("#provincePv").text(provincePv);
+                continue;
+            }
 			var city_name_cn = anhui[city_name];
 			if(city_name_cn != null && city_name_cn != ""){
 				var nb_visits = city.nb_visits;
