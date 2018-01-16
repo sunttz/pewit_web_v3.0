@@ -286,7 +286,11 @@ function ajaxCsTable(){
 		data = eval(data);
 		for(var k in data){
 			var row = data[k];
-			csData.push({url:'<a href="'+row.url+'" target="_blank">'+cutStr(row.url,100)+'</a>',pv:row.nb_hits,uv:row.nb_visits,env:row.entry_nb_visits,br:row.bounce_rate,at:formatTime(row.avg_time_on_page),avg:row.avg_time_generation})
+			var url = row.url;
+			if(url == undefined || url == ""){
+				url = row.label;
+			}
+			csData.push({url:'<a href="'+url+'" target="_blank">'+cutStr(url,100)+'</a>',pv:row.nb_hits,uv:row.nb_visits,env:row.entry_nb_visits,br:row.bounce_rate,at:formatTime(row.avg_time_on_page),avg:row.avg_time_generation})
 		}
 		initCsTable(csData);
 	});
