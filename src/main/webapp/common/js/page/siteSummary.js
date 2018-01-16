@@ -300,6 +300,11 @@ function top10Visit(){
 			// 	continue;
 			// }
 			var label = module;
+			// 多级模块只展示最后一级
+			var lastI = label.lastIndexOf("/");
+			if(lastI > -1){
+				label = label.substr(lastI + 1);
+			}
 			// label最长42字符
 			if(getStrLength(label) > 42){
 				label = cutStr(label,42);
@@ -349,6 +354,11 @@ function top10Entry(){
             //     continue;
             // }
 			var module = label;
+            // 多级模块只展示最后一级
+            var lastI = label.lastIndexOf("/");
+            if(lastI > -1){
+                label = label.substr(lastI + 1);
+            }
 			// label最长42字符
 			if(getStrLength(label) > 42){
 				label = cutStr(label, 42);
@@ -553,6 +563,11 @@ function top10WellPage(){
             // if(module == "Page Name not defined" || module == "页面标题 未定义"){
             //     continue;
             // }
+            // 多级模块只展示最后一级
+            var lastI = label.lastIndexOf("/");
+            if(lastI > -1){
+                label = label.substr(lastI + 1);
+            }
 			// label最长42字符
 			if(getStrLength(label) > 42){
 				label = cutStr(label,42);
@@ -594,6 +609,11 @@ function top10BadPage(){
             // if(module == "Page Name not defined" || module == "页面标题 未定义"){
             //     continue;
             // }
+            // 多级模块只展示最后一级
+            var lastI = label.lastIndexOf("/");
+            if(lastI > -1){
+                label = label.substr(lastI + 1);
+            }
 			// label最长42字符
 			if(getStrLength(label) > 42){
 				label = cutStr(label,42);
@@ -625,6 +645,11 @@ function monthModule(){
         for(var k in data){
             var module = data[k];
             var label = module;
+            // 多级模块只展示最后一级
+            var lastI = label.lastIndexOf("/");
+            if(lastI > -1){
+                label = label.substr(lastI + 1);
+            }
             // label最长80字符
             if(getStrLength(label) > 80){
                 label = cutStr(label,80);
