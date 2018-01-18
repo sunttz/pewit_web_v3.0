@@ -547,7 +547,7 @@ function jumpDistrict(){
 // Top10最优性能页面start
 function top10WellPage(){
 	var date = $("#date").val(); // 日期
-	var p_1 = "module=API&method=Actions.getPageTitles&idSite="+idSite+"&period=range&date="+date+"&format=json&token_auth="+t+"&filter_limit=10&filter_sort_column=avg_time_generation&filter_sort_order=asc&flat=1";
+	var p_1 = "module=API&method=Actions.getPageTitles&idSite="+idSite+"&period=range&date="+date+"&format=json&token_auth="+t+"&filter_limit=100&filter_sort_column=avg_time_generation&filter_sort_order=asc&flat=1";
 	var urls = new Array();
 	urls.push(encodeURI(p_1));
 	var p = getBulkRequestParam(urls);
@@ -555,7 +555,11 @@ function top10WellPage(){
 		data = eval(data);
 		var pages = data[0];
 		var tbodyHtml = "";
+		var totalNum = 0; // 最优模块数量取前十不为0的值
 		for(var k in pages){
+			if(totalNum > 9){
+				break;
+			}
 			var page = pages[k];
 			var label = page.label;
 			var module = label;
@@ -575,10 +579,14 @@ function top10WellPage(){
 			//var url = page.url;
             var href = "searchSummary.html?pageTitle="+encodeURIComponent(module)+"&siteId="+idSite+"&t="+t;
 			var atg = page.avg_time_generation;
+			if(atg == 0){
+				continue;
+			}
 			tbodyHtml += "<tr>";
 			tbodyHtml += "<td title='"+module+"'><a href='"+href+"'>"+label+"</a></td>";
 			tbodyHtml += "<td align='center'>"+atg+"</td>";
 			tbodyHtml += "</tr>";
+			totalNum ++;
 		}
 		$("#top10_wellPage_tbody").html(tbodyHtml);
 	});

@@ -99,18 +99,21 @@ function initDateCondition(){
 				break;
 		}
         dateDiv += '<button type="button" class="btn btn-default btn-sm';
-		if(i == 2){
-            dateDiv += ' active';
-            // 设置默认为上个月
-            $("#dateKind").val(monthTmp);
-            var month2 = (monthTmp < 10)?('0' + monthTmp):monthTmp;
-            var startDate = yearTmp+'-'+month2+'-01';
-            var endDate = yearTmp+'-'+month2+'-'+dateTmp;
-            $("#startDate").val(startDate);
-            $("#endDate").val(endDate);
-		}
+		// if(i == 2){
+         //    dateDiv += ' active';
+         //    // 设置默认为上个月
+         //    $("#dateKind").val(monthTmp);
+         //    var month2 = (monthTmp < 10)?('0' + monthTmp):monthTmp;
+         //    var startDate = yearTmp+'-'+month2+'-01';
+         //    var endDate = yearTmp+'-'+month2+'-'+dateTmp;
+         //    $("#startDate").val(startDate);
+         //    $("#endDate").val(endDate);
+		// }
         dateDiv += '" year="'+yearTmp+'" month="'+monthTmp+'" day="'+dateTmp+'">'+monthTmp+'月</button>';
 	}
+	// 默认查询最近7天
+    $("#startDate").val(getDateStr(-6));
+    $("#endDate").val(getDateStr(0));
 	$("#dateDiv").prepend(dateDiv);
     //时间切换
     $("#dateDiv button").click(function() {
