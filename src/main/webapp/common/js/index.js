@@ -395,7 +395,7 @@ $(function(){
 	//getSkinByCookie();
 
 	/*菜单json*/
-	var menu = [{"id":"1","name":"网站导航","parentId":"0","url":"","icon":"","order":"1","isHeader":"1","childMenus":[
+	var menu = [{"id":"1","name":"&nbsp;&nbsp;网站导航","parentId":"0","url":"","icon":"","order":"1","isHeader":"1","childMenus":[
 					{"id":"3","name":"网站概况","parentId":"1","url":"siteSummary.html","icon":"&#xe602;","order":"1","isHeader":"0","childMenus":""},
         			{"id":"4","name":"功能模块后评估全视图","parentId":"1","url":"searchSummary.html","icon":"&#xe602;","order":"1","isHeader":"0","childMenus":""},
 					{"id":"13","name":"流量分析","parentId":"1","url":"","icon":"","order":"1","isHeader":"0","childMenus":[
